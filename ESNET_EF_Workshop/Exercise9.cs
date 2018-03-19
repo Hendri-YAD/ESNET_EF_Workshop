@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace ESNET_EF_Workshop
 {
-    public partial class Form1 : Form
+    public partial class Exercise9 : Form
     {
-        public Form1()
+        public Exercise9()
         {
             InitializeComponent();
         }
@@ -21,20 +21,25 @@ namespace ESNET_EF_Workshop
         {
             DafestyEntities context = new DafestyEntities();
 
-            var qry = from x in context.Movies select x;
+            var q = from x in context.Movies
+                    where x.Rating == "R"
+                    select new
+                    {
+                        x.VideoCode,
+                        x.MovieTitle,
+                        x.RentalPrice
+                    };
 
-            List<Movies> cLst = qry.ToList<Movies>();
-            dataGridView1.DataSource = cLst;
-
+            dataGridView1.DataSource = q.ToList();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
             DafestyEntities context = new DafestyEntities();
 
-            List<Movies> cLst = context.Movies.ToList();
-
-            dataGridView1.DataSource = cLst;
+            dataGridView1.DataSource = context.Movies.
+                Where(x => x.Rating == "R").
+                Select(x => new { x.VideoCode, x.MovieTitle, x.RentalPrice }).ToList();
         }
     }
 }

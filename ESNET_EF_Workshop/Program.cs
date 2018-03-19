@@ -16,7 +16,7 @@ namespace ESNET_EF_Workshop
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new Exercise10());
         }
     }
 }
